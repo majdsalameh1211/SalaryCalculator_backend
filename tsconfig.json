@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "CommonJS",
-    "rootDir": "./",
+    "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "strict": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "test-api.ts"]
+  "include": ["src/**/*"]
 }

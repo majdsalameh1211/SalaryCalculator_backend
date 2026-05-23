@@ -85,9 +85,10 @@ export const generateStats = async (
   const totalIncome = s.cashSalary + totalTransfer;
   const netProfit = totalIncome - e.totalFuel - e.totalParking;
 
-  const avgHourRate = totalHours > 0 ? totalIncome / totalHours : 0;
-  const avgIncome = s.totalShiftsCount > 0 ? totalIncome / s.totalShiftsCount : 0;
-  const avgBonus = s.totalShiftsCount > 0 ? bonus / s.totalShiftsCount : 0;
+  const regularIncome = s.cashSalary + s.regularTransfer;
+  const avgHourRate = s.regularHours > 0 ? regularIncome / s.regularHours : 0;
+  const avgIncome = s.regularCount > 0 ? regularIncome / s.regularCount : 0;
+  const avgBonus = s.regularCount > 0 ? bonus / s.regularCount : 0;
 
   return {
     totalShiftsCount: s.totalShiftsCount,

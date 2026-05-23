@@ -39,10 +39,18 @@ export const createShift = async (req: Request, res: Response, next: NextFunctio
 export const updateShift = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const userId = req.user!.userId;
-    const calculatedData = await calculateShift(req.body, userId);
+
+    const existing = await Shift.findOne({ _id: req.params.id, userId }).lean();
+    if (!existing) {
+      res.status(404).json({ message: 'Shift not found' });
+      return;
+    }
+
+    const merged = { ...existing, ...req.body };
+    const calculatedData = await calculateShift(merged, userId);
 
     const shift = await Shift.findOneAndUpdate(
-      { _id: req.params.id, userId }, // scoped to user — prevents updating another user's shift
+      { _id: req.params.id, userId },
       calculatedData,
       { new: true }
     );
